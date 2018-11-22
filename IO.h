@@ -10,5 +10,6 @@
 #define IO_h
 
 #include <stdio.h>
+int read_line_by_line(FILE*f,char*line);
 
 #endif /* IO_h */
