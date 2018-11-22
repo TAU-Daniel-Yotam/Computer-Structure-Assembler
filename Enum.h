@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 
+
 typedef enum reg{
     ZERO= 0x0,
     AT  = 0x1,

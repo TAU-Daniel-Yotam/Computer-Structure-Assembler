@@ -16,4 +16,5 @@ int read_line_by_line(FILE*f,char*line){
         return 0;
     }
     return 1;
+
 }
