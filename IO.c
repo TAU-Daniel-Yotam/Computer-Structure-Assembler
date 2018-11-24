@@ -10,9 +10,9 @@
 #define BUFSIZE 500
 
 int read_line_by_line(FILE*f,char*line){
-    size_t readlen;
-    size_t bufsize = BUFSIZE;
-    if ((readlen = getline(&line, &bufsize, f)) != -1) {
+    char* readlen;
+    int bufsize = BUFSIZE;
+    if ((readlen = fgets(line, bufsize, f)) != NULL) {
         return 0;
     }
     return 1;
