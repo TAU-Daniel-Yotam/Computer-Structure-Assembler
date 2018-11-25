@@ -17,17 +17,6 @@
 #define LINESIZE 4096
 
 
-#define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
-#define BYTE_TO_BINARY(byte)  \
-(byte & 0x80 ? '1' : '0'), \
-(byte & 0x40 ? '1' : '0'), \
-(byte & 0x20 ? '1' : '0'), \
-(byte & 0x10 ? '1' : '0'), \
-(byte & 0x08 ? '1' : '0'), \
-(byte & 0x04 ? '1' : '0'), \
-(byte & 0x02 ? '1' : '0'), \
-(byte & 0x01 ? '1' : '0')
-
 int main(int argc, const char * argv[]) {
     assert(argc==3);
     int count = 0;
@@ -38,10 +27,10 @@ int main(int argc, const char * argv[]) {
     int memory[MEMSIZE]={0};
     while(!read_line_by_line(asm_file, buf)){
         unsigned int inst = 0;
-        //parse(parsed_instruction,buf);
-        //parsed_instruction = {6,12,4,10,7,1023};
-        parsed_instruction[0]=6; parsed_instruction[1]=12; parsed_instruction[2]=4;
-        parsed_instruction[3]=10;parsed_instruction[4]=7;parsed_instruction[5]=1023;
+        parse(parsed_instruction,buf);
+//        parsed_instruction = {6,12,4,10,7,1023};
+//        parsed_instruction[0]=6; parsed_instruction[1]=12; parsed_instruction[2]=4;
+//        parsed_instruction[3]=10;parsed_instruction[4]=7;parsed_instruction[5]=1023;
         if(parsed_instruction[0]==8){ // if "word" instruction
             memory[parsed_instruction[1]] = parsed_instruction[2];
         }
