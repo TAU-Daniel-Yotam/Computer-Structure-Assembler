@@ -11,12 +11,16 @@
 #define BUFSIZE 500
 
 
-
+// TODO CHECK if we need to change \n to \r\n
 int read_line_by_line(FILE*f,char*line){
     char* readlen;
+    char * word;
     int bufSize = BUFSIZE;
     if ((readlen = fgets(line, bufSize, f)) != NULL) {
-        strtok(line,"\n");
+        word=strtok(line,"\n");  //remove \n from line .need to check if we need to change to \r\n
+        if(!word) //because strtok on line "\n" not remove '\n' i check if it returns null(only if
+            // line  was "\n"  ) and then remove \n by myself-return NULL;
+            line[0]='\0';
         return 0;
     }
     return 1;
@@ -27,12 +31,20 @@ void findLabels(FILE *file,char ** Labels,char * line) {
     int pc = 0;
     while (!read_line_by_line(file, line)) {
         word = strtok(line, " \t:");
-        if ((memcmp(word, ".word", 5) != 0) && (parse_opcode(word) == -1)) {
+        if(!word)//check if it was empty line . if it is emtpy line we skip to next iteration and read the next line
+            continue;
+        else if ((memcmp(word, ".word", 5) != 0) && (parse_opcode(word) == -1)) {//check if it is label
             label = calloc(strlen(word), sizeof(char));
             strcpy(label, word);
             Labels[pc]=label;
+            word=strtok(NULL,",");//check if the label is in the same line of the command .if it's not in the same line
+            //then we don't promote pc because the next line refer the same pc.
+            if(!word)
+                pc++;
         }
-        pc++;
+        else if((memcmp(word, ".word", 5)))//check if it is command .if it is command we promote pc if not-it is .word  and it's not count
+            //as a command so we don't promote pc.
+            pc++;
     }
 }
 
@@ -53,7 +65,8 @@ int parser(char * line,int * command,char ** Labels){
     char * word;
     int parameter=0;
     char * newline=removeLabel(line);
-    word=strtok(newline," \t,#");
+    if(newline==NULL||!(word=strtok(newline," \t,#")))
+        return 1;
     if(!(strcmp(word,".word"))){
         while(parameter<3){
             if (parameter==0)
@@ -64,7 +77,7 @@ int parser(char * line,int * command,char ** Labels){
         }
     }
     else {
-        while (word != NULL) {
+        while (parameter<6) {
             if (parameter == 0)
                 command[parameter++] = parse_opcode(word);
             else if (parameter <= 4)
@@ -85,7 +98,7 @@ int parser(char * line,int * command,char ** Labels){
 char * removeLabel(char * line){
     for (int i=0; i<strlen(line);i++) {
         if (line[i]==':'){
-            if(i<strlen(line)-1)
+            if(i<strlen(line)-1)//it is not the end of the line -after the : there is a command-we return the command only
                 return &line[i+1];
             else
                 return NULL;
@@ -151,6 +164,8 @@ int parse_register(char * reg){
         return S0;
     if (!strcmp(reg,"$s1"))
         return S1;
+    if (!strcmp(reg,"$s2"))
+        return S2;
     if (!strcmp(reg,"$gp"))
         return GP;
     if (!strcmp(reg,"$sp"))

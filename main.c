@@ -2,6 +2,9 @@
 //  main.c
 //  Assembler
 //
+//  main.c
+//  Assembler
+//
 //  Created by Yotam Manne on 18/11/2018.
 //  Copyright © 2018 Yotam Manne. All rights reserved.
 //
@@ -10,7 +13,6 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
-#include "IO.h"
 #include "Parser.h"
 
 #define MEMSIZE 4096
@@ -45,8 +47,11 @@ int main(int argc, const char * argv[]) {
                 if(i>=0 && i<=4){
                     temp<<=(7-i)*4;
                 }
+                else
+                    temp=temp&0xfff;
                 inst |= temp;
             }
+
             memory[count] = inst;
             count++;
         }
