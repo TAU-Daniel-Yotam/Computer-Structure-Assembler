@@ -62,14 +62,14 @@ int parser(char * line,int * command,char ** Labels){
         }
     }
     else {
-        while (word != NULL) {
+        while (word != NULL && parameter<6) {
             if (parameter == 0){
                 int opcode = parse_opcode(word);
                 if(opcode==7){
                     isbranch=1;
                 }
                 command[parameter++] = opcode;
-                
+
             }
             else if (parameter < 4)
                 command[parameter++] = parse_register(word);
