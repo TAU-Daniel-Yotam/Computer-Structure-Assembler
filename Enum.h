@@ -1,10 +1,4 @@
-//
-//  Enum.h
-//  Assembler
-//
-//  Created by Yotam Manne on 22/11/2018.
-//  Copyright © 2018 Yotam Manne. All rights reserved.
-//
+
 
 #ifndef Enum_h
 #define Enum_h

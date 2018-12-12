@@ -1,9 +1,8 @@
-//
-// Created by danielpeer on 26/11/2018.
-//
+
 #include "Enum.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #ifndef Parser_h
 #define Parser_h
 

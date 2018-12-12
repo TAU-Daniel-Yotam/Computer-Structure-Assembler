@@ -1,13 +1,4 @@
-//
-//  main.c
-//  Assembler
-//
-//  main.c
-//  Assembler
-//
-//  Created by Yotam Manne on 18/11/2018.
-//  Copyright © 2018 Yotam Manne. All rights reserved.
-//
+
 
 #include <stdio.h>
 #include <assert.h>
@@ -34,9 +25,6 @@ int main(int argc, const char * argv[]) {
         unsigned int inst = 0;
         if(parser(buf,parsed_instruction,labels)==1)
             continue;
-//        parsed_instruction = {6,12,4,10,7,1023};
-//        parsed_instruction[0]=6; parsed_instruction[1]=12; parsed_instruction[2]=4;
-//        parsed_instruction[3]=10;parsed_instruction[4]=7;parsed_instruction[5]=1023;
         if(parsed_instruction[0]==8){ // if "word" instruction
             memory[parsed_instruction[1]] = parsed_instruction[2];
         }
@@ -47,20 +35,17 @@ int main(int argc, const char * argv[]) {
                 if(i>=0 && i<=4){
                     temp<<=(7-i)*4;
                 }
-                else
-                    temp=temp&0xfff;
                 inst |= temp;
             }
-
             memory[count] = inst;
             count++;
         }
 
     }
     for(int i=0;i<MEMSIZE;i++){
-        fprintf(mem_file, "%08X\n",memory[i]);
+        fprintf(mem_file, "%08X\r\n",memory[i]);
     }
-    fclose(mem_file);
     fclose(asm_file);
+    fclose(mem_file);
     return 0;
 }
