@@ -35,6 +35,9 @@ int main(int argc, const char * argv[]) {
                 if(i>=0 && i<=4){
                     temp<<=(7-i)*4;
                 }
+                if(i==5){
+                    temp &= 0xfff;
+                }
                 inst |= temp;
             }
             memory[count] = inst;

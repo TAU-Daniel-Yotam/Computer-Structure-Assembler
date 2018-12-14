@@ -25,7 +25,7 @@ void findLabels(FILE *file,char ** Labels,char * line) {
             strcpy(label, word);
             Labels[pc]=label;
         }
-        if(word!=NULL){
+        if(word!=NULL && (memcmp(word, ".word", 5) != 0) && (parse_opcode(word) != -1)){
             pc++;
         }
     }
