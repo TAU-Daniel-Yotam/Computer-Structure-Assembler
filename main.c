@@ -6,10 +6,18 @@
 #include <stdlib.h>
 #include "Parser.h"
 
-#define MEMSIZE 4096
-#define LINESIZE 500
 
 
+
+/**
+ Assembler - the programs reads an assembly program and translates it to instruction encodinds in
+ 8 hexadecimal digits format. The output is written to a text file that represents the memory of the
+ computer.
+
+ @param argv -  [1]: the assembly file (a program in assembly language)
+                [2]: the output file - the memory of the computer/
+ @return 0
+ */
 int main(int argc, const char * argv[]) {
     assert(argc==3);
     int count = 0;

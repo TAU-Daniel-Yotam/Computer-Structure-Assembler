@@ -4,7 +4,9 @@
 #define Enum_h
 
 #include <stdio.h>
-
+/**
+ Two enums for easy usage of register names and assembly operations
+ */
 
 typedef enum reg{
     ZERO= 0x0,
